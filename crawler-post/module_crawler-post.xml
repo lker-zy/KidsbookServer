@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="module_crawler-post" default="compile.module.crawler-post">
+  <dirname property="module.crawler-post.basedir" file="${ant.file.module_crawler-post}"/>
+  
+  <property name="module.jdk.home.crawler-post" value="${project.jdk.home}"/>
+  <property name="module.jdk.bin.crawler-post" value="${project.jdk.bin}"/>
+  <property name="module.jdk.classpath.crawler-post" value="${project.jdk.classpath}"/>
+  
+  <property name="compiler.args.crawler-post" value="-encoding UTF-8 -source 8 -target 8 ${compiler.args}"/>
+  
+  <property name="crawler-post.output.dir" value="${module.crawler-post.basedir}/../out/production/crawler-post"/>
+  <property name="crawler-post.testoutput.dir" value="${module.crawler-post.basedir}/../out/test/crawler-post"/>
+  
+  <path id="crawler-post.module.bootclasspath">
+    <!-- Paths to be included in compilation bootclasspath -->
+  </path>
+  
+  <path id="crawler-post.module.production.classpath">
+    <path refid="${module.jdk.classpath.crawler-post}"/>
+    <pathelement location="${kidsbook-common.output.dir}"/>
+  </path>
+  
+  <path id="crawler-post.runtime.production.module.classpath">
+    <pathelement location="${crawler-post.output.dir}"/>
+    <path refid="kidsbook-common.runtime.production.module.classpath"/>
+  </path>
+  
+  <path id="crawler-post.module.classpath">
+    <path refid="${module.jdk.classpath.crawler-post}"/>
+    <pathelement location="${crawler-post.output.dir}"/>
+    <pathelement location="${kidsbook-common.testoutput.dir}"/>
+    <pathelement location="${kidsbook-common.output.dir}"/>
+  </path>
+  
+  <path id="crawler-post.runtime.module.classpath">
+    <pathelement location="${crawler-post.testoutput.dir}"/>
+    <pathelement location="${crawler-post.output.dir}"/>
+    <path refid="kidsbook-common.runtime.module.classpath"/>
+  </path>
+  
+  
+  <patternset id="excluded.from.module.crawler-post">
+    <patternset refid="ignored.files"/>
+  </patternset>
+  
+  <patternset id="excluded.from.compilation.crawler-post">
+    <patternset refid="excluded.from.module.crawler-post"/>
+  </patternset>
+  
+  <path id="crawler-post.module.sourcepath">
+    <dirset dir="${module.crawler-post.basedir}">
+      <include name="src"/>
+    </dirset>
+  </path>
+  
+  
+  <target name="compile.module.crawler-post" depends="compile.module.crawler-post.production,compile.module.crawler-post.tests" description="Compile module crawler-post"/>
+  
+  <target name="compile.module.crawler-post.production" depends="register.custom.compilers,compile.module.kidsbook-common" description="Compile module crawler-post; production classes">
+    <mkdir dir="${crawler-post.output.dir}"/>
+    <javac2 destdir="${crawler-post.output.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true" executable="${module.jdk.bin.crawler-post}/javac">
+      <compilerarg line="${compiler.args.crawler-post}"/>
+      <bootclasspath refid="crawler-post.module.bootclasspath"/>
+      <classpath refid="crawler-post.module.production.classpath"/>
+      <src refid="crawler-post.module.sourcepath"/>
+      <patternset refid="excluded.from.compilation.crawler-post"/>
+    </javac2>
+    
+    <copy todir="${crawler-post.output.dir}">
+      <fileset dir="${module.crawler-post.basedir}/src">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+    </copy>
+  </target>
+  
+  <target name="compile.module.crawler-post.tests" depends="register.custom.compilers,compile.module.crawler-post.production" description="compile module crawler-post; test classes" unless="skip.tests"/>
+  
+  <target name="clean.module.crawler-post" description="cleanup module">
+    <delete dir="${crawler-post.output.dir}"/>
+    <delete dir="${crawler-post.testoutput.dir}"/>
+  </target>
+</project>

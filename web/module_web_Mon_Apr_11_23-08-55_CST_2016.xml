@@ -1,0 +1,486 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="module_web" default="compile.module.web">
+  <dirname property="module.web.basedir" file="${ant.file.module_web}"/>
+  
+  <property name="module.jdk.home.web" value="${project.jdk.home}"/>
+  <property name="module.jdk.bin.web" value="${project.jdk.bin}"/>
+  <property name="module.jdk.classpath.web" value="${project.jdk.classpath}"/>
+  
+  <property name="compiler.args.web" value="-encoding UTF-8 -source 8 -target 8 ${compiler.args}"/>
+  
+  <property name="web.output.dir" value="${module.web.basedir}/../out/production/web"/>
+  <property name="web.testoutput.dir" value="${module.web.basedir}/../out/test/web"/>
+  
+  <path id="web.module.bootclasspath">
+    <!-- Paths to be included in compilation bootclasspath -->
+  </path>
+  
+  <path id="web.module.production.classpath">
+    <path refid="${module.jdk.classpath.web}"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/aopalliance-1.0.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/avalon-framework-4.1.3.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/bce-java-sdk-0.9.5-javadoc.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/bce-java-sdk-0.9.5-sources.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/bce-java-sdk-0.9.5.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/builder-0.6.2.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/classworlds-1.1.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/commons-beanutils-1.9.2.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/commons-codec-1.10.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/commons-collections-3.1.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/commons-collections-3.2.1.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/commons-dbcp2-2.1.1-javadoc.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/commons-dbcp2-2.1.1-sources.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/commons-dbcp2-2.1.1.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/commons-digester-2.1.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/commons-fileupload-1.3.1.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/commons-httpclient-3.1.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/commons-io-2.4.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/commons-lang-2.4.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/commons-lang3-3.4.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/commons-logging-1.0.4.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/commons-logging-1.1.3.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/commons-logging-1.1.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/commons-logging-1.2.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/commons-logging-api-1.1.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/commons-pool-1.6.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/commons-pool2-2.4.2.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/connector-api-1.5.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/core-0.6.2.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/dom4j-1.6.1.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/dwr-1.1.1.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/ezmorph-1.0.6.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/fastjson-1.2.7.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/freemarker-2.3.22.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/geronimo-spec-jta-1.0.1B-rc2.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/google-collections-1.0.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/google-gxp-0.2.4-beta.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/guava-r09.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/hamcrest-core-1.3.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/httpclient-4.5.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/httpcore-4.4.1.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/jackson-annotations-2.6.0.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/jackson-core-2.6.1.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/jackson-core-asl-1.5.2.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/jackson-databind-2.6.1.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/jackson-mapper-asl-1.5.2.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/javassist-3.11.0.GA.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/jaxrpc-api-1.1.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/jdo2-api-2.0.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/jedis-2.7.3.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/json-lib-2.3-jdk15.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/jsp-api-2.0.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/jstl-1.1.0.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/juli-6.0.18.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/kidsbook-common.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/log4j-1.2.12.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/log4j-api-2.3.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/log4j-core-2.3.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/logkit-1.0.1.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/mvel2-2.0.11.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/mysql-connector-java-5.1.38-sources.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/mysql-connector-java-5.1.38.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/ognl-3.0.11.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/org.apache.felix.framework-4.0.3.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/org.apache.felix.main-4.0.3.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/org.apache.felix.shell-1.4.3.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/org.apache.felix.shell.tui-1.4.1.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/org.osgi.compendium-4.0.0.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/org.osgi.core-4.1.0.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/oro-2.0.8.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/oval-1.31.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/persistence-api-1.0.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/plexus-container-default-1.0-alpha-10.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/plexus-utils-1.2.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/portlet-api-1.0.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/servlet-api-2.4.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/servlet-api.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/sitemesh-2.4.2.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/spring-aop-4.1.6.RELEASE.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/spring-beans-4.1.6.RELEASE.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/spring-context-4.1.6.RELEASE.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/spring-context-support-4.1.6.RELEASE.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/spring-core-4.1.6.RELEASE.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/spring-expression-4.1.6.RELEASE-javadoc.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/spring-expression-4.1.6.RELEASE-sources.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/spring-expression-4.1.6.RELEASE.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/spring-jdbc-4.1.6.RELEASE.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/spring-tx-4.1.6.RELEASE.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/struts2-core-2.5-BETA2.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/struts2-json-plugin-2.5-BETA2.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/validation-api-1.1.0.Final.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/velocity-1.6.4.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/velocity-tools-1.3.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/xml-apis-1.0.b2.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/xmlpull-1.1.3.1.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/xpp3_min-1.1.4c.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/xstream-1.4.2.jar"/>
+    <fileset dir="${basedir}/web/web/WEB-INF/lib">
+      <patternset refid="library.patterns"/>
+    </fileset>
+  </path>
+  
+  <path id="web.runtime.production.module.classpath">
+    <pathelement location="${web.output.dir}"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/aopalliance-1.0.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/avalon-framework-4.1.3.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/bce-java-sdk-0.9.5-javadoc.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/bce-java-sdk-0.9.5-sources.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/bce-java-sdk-0.9.5.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/builder-0.6.2.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/classworlds-1.1.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/commons-beanutils-1.9.2.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/commons-codec-1.10.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/commons-collections-3.1.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/commons-collections-3.2.1.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/commons-dbcp2-2.1.1-javadoc.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/commons-dbcp2-2.1.1-sources.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/commons-dbcp2-2.1.1.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/commons-digester-2.1.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/commons-fileupload-1.3.1.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/commons-httpclient-3.1.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/commons-io-2.4.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/commons-lang-2.4.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/commons-lang3-3.4.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/commons-logging-1.0.4.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/commons-logging-1.1.3.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/commons-logging-1.1.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/commons-logging-1.2.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/commons-logging-api-1.1.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/commons-pool-1.6.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/commons-pool2-2.4.2.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/connector-api-1.5.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/core-0.6.2.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/dom4j-1.6.1.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/dwr-1.1.1.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/ezmorph-1.0.6.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/fastjson-1.2.7.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/freemarker-2.3.22.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/geronimo-spec-jta-1.0.1B-rc2.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/google-collections-1.0.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/google-gxp-0.2.4-beta.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/guava-r09.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/hamcrest-core-1.3.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/httpclient-4.5.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/httpcore-4.4.1.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/jackson-annotations-2.6.0.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/jackson-core-2.6.1.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/jackson-core-asl-1.5.2.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/jackson-databind-2.6.1.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/jackson-mapper-asl-1.5.2.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/javassist-3.11.0.GA.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/jaxrpc-api-1.1.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/jdo2-api-2.0.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/jedis-2.7.3.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/json-lib-2.3-jdk15.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/jsp-api-2.0.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/jstl-1.1.0.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/juli-6.0.18.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/kidsbook-common.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/log4j-1.2.12.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/log4j-api-2.3.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/log4j-core-2.3.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/logkit-1.0.1.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/mvel2-2.0.11.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/mysql-connector-java-5.1.38-sources.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/mysql-connector-java-5.1.38.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/ognl-3.0.11.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/org.apache.felix.framework-4.0.3.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/org.apache.felix.main-4.0.3.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/org.apache.felix.shell-1.4.3.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/org.apache.felix.shell.tui-1.4.1.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/org.osgi.compendium-4.0.0.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/org.osgi.core-4.1.0.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/oro-2.0.8.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/oval-1.31.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/persistence-api-1.0.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/plexus-container-default-1.0-alpha-10.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/plexus-utils-1.2.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/portlet-api-1.0.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/servlet-api-2.4.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/servlet-api.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/sitemesh-2.4.2.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/spring-aop-4.1.6.RELEASE.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/spring-beans-4.1.6.RELEASE.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/spring-context-4.1.6.RELEASE.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/spring-context-support-4.1.6.RELEASE.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/spring-core-4.1.6.RELEASE.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/spring-expression-4.1.6.RELEASE-javadoc.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/spring-expression-4.1.6.RELEASE-sources.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/spring-expression-4.1.6.RELEASE.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/spring-jdbc-4.1.6.RELEASE.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/spring-tx-4.1.6.RELEASE.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/struts2-core-2.5-BETA2.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/struts2-json-plugin-2.5-BETA2.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/validation-api-1.1.0.Final.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/velocity-1.6.4.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/velocity-tools-1.3.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/xml-apis-1.0.b2.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/xmlpull-1.1.3.1.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/xpp3_min-1.1.4c.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/xstream-1.4.2.jar"/>
+    <fileset dir="${basedir}/web/web/WEB-INF/lib">
+      <patternset refid="library.patterns"/>
+    </fileset>
+  </path>
+  
+  <path id="web.module.classpath">
+    <path refid="${module.jdk.classpath.web}"/>
+    <pathelement location="${web.output.dir}"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/aopalliance-1.0.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/avalon-framework-4.1.3.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/bce-java-sdk-0.9.5-javadoc.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/bce-java-sdk-0.9.5-sources.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/bce-java-sdk-0.9.5.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/builder-0.6.2.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/classworlds-1.1.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/commons-beanutils-1.9.2.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/commons-codec-1.10.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/commons-collections-3.1.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/commons-collections-3.2.1.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/commons-dbcp2-2.1.1-javadoc.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/commons-dbcp2-2.1.1-sources.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/commons-dbcp2-2.1.1.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/commons-digester-2.1.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/commons-fileupload-1.3.1.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/commons-httpclient-3.1.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/commons-io-2.4.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/commons-lang-2.4.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/commons-lang3-3.4.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/commons-logging-1.0.4.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/commons-logging-1.1.3.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/commons-logging-1.1.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/commons-logging-1.2.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/commons-logging-api-1.1.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/commons-pool-1.6.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/commons-pool2-2.4.2.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/connector-api-1.5.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/core-0.6.2.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/dom4j-1.6.1.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/dwr-1.1.1.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/ezmorph-1.0.6.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/fastjson-1.2.7.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/freemarker-2.3.22.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/geronimo-spec-jta-1.0.1B-rc2.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/google-collections-1.0.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/google-gxp-0.2.4-beta.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/guava-r09.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/hamcrest-core-1.3.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/httpclient-4.5.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/httpcore-4.4.1.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/jackson-annotations-2.6.0.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/jackson-core-2.6.1.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/jackson-core-asl-1.5.2.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/jackson-databind-2.6.1.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/jackson-mapper-asl-1.5.2.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/javassist-3.11.0.GA.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/jaxrpc-api-1.1.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/jdo2-api-2.0.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/jedis-2.7.3.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/json-lib-2.3-jdk15.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/jsp-api-2.0.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/jstl-1.1.0.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/juli-6.0.18.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/kidsbook-common.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/log4j-1.2.12.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/log4j-api-2.3.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/log4j-core-2.3.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/logkit-1.0.1.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/mvel2-2.0.11.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/mysql-connector-java-5.1.38-sources.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/mysql-connector-java-5.1.38.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/ognl-3.0.11.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/org.apache.felix.framework-4.0.3.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/org.apache.felix.main-4.0.3.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/org.apache.felix.shell-1.4.3.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/org.apache.felix.shell.tui-1.4.1.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/org.osgi.compendium-4.0.0.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/org.osgi.core-4.1.0.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/oro-2.0.8.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/oval-1.31.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/persistence-api-1.0.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/plexus-container-default-1.0-alpha-10.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/plexus-utils-1.2.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/portlet-api-1.0.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/servlet-api-2.4.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/servlet-api.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/sitemesh-2.4.2.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/spring-aop-4.1.6.RELEASE.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/spring-beans-4.1.6.RELEASE.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/spring-context-4.1.6.RELEASE.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/spring-context-support-4.1.6.RELEASE.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/spring-core-4.1.6.RELEASE.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/spring-expression-4.1.6.RELEASE-javadoc.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/spring-expression-4.1.6.RELEASE-sources.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/spring-expression-4.1.6.RELEASE.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/spring-jdbc-4.1.6.RELEASE.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/spring-tx-4.1.6.RELEASE.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/struts2-core-2.5-BETA2.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/struts2-json-plugin-2.5-BETA2.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/validation-api-1.1.0.Final.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/velocity-1.6.4.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/velocity-tools-1.3.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/xml-apis-1.0.b2.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/xmlpull-1.1.3.1.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/xpp3_min-1.1.4c.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/xstream-1.4.2.jar"/>
+    <fileset dir="${basedir}/web/web/WEB-INF/lib">
+      <patternset refid="library.patterns"/>
+    </fileset>
+  </path>
+  
+  <path id="web.runtime.module.classpath">
+    <pathelement location="${web.testoutput.dir}"/>
+    <pathelement location="${web.output.dir}"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/aopalliance-1.0.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/avalon-framework-4.1.3.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/bce-java-sdk-0.9.5-javadoc.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/bce-java-sdk-0.9.5-sources.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/bce-java-sdk-0.9.5.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/builder-0.6.2.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/classworlds-1.1.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/commons-beanutils-1.9.2.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/commons-codec-1.10.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/commons-collections-3.1.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/commons-collections-3.2.1.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/commons-dbcp2-2.1.1-javadoc.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/commons-dbcp2-2.1.1-sources.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/commons-dbcp2-2.1.1.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/commons-digester-2.1.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/commons-fileupload-1.3.1.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/commons-httpclient-3.1.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/commons-io-2.4.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/commons-lang-2.4.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/commons-lang3-3.4.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/commons-logging-1.0.4.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/commons-logging-1.1.3.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/commons-logging-1.1.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/commons-logging-1.2.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/commons-logging-api-1.1.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/commons-pool-1.6.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/commons-pool2-2.4.2.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/connector-api-1.5.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/core-0.6.2.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/dom4j-1.6.1.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/dwr-1.1.1.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/ezmorph-1.0.6.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/fastjson-1.2.7.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/freemarker-2.3.22.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/geronimo-spec-jta-1.0.1B-rc2.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/google-collections-1.0.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/google-gxp-0.2.4-beta.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/guava-r09.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/hamcrest-core-1.3.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/httpclient-4.5.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/httpcore-4.4.1.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/jackson-annotations-2.6.0.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/jackson-core-2.6.1.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/jackson-core-asl-1.5.2.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/jackson-databind-2.6.1.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/jackson-mapper-asl-1.5.2.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/javassist-3.11.0.GA.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/jaxrpc-api-1.1.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/jdo2-api-2.0.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/jedis-2.7.3.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/json-lib-2.3-jdk15.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/jsp-api-2.0.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/jstl-1.1.0.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/juli-6.0.18.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/kidsbook-common.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/log4j-1.2.12.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/log4j-api-2.3.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/log4j-core-2.3.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/logkit-1.0.1.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/mvel2-2.0.11.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/mysql-connector-java-5.1.38-sources.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/mysql-connector-java-5.1.38.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/ognl-3.0.11.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/org.apache.felix.framework-4.0.3.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/org.apache.felix.main-4.0.3.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/org.apache.felix.shell-1.4.3.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/org.apache.felix.shell.tui-1.4.1.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/org.osgi.compendium-4.0.0.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/org.osgi.core-4.1.0.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/oro-2.0.8.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/oval-1.31.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/persistence-api-1.0.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/plexus-container-default-1.0-alpha-10.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/plexus-utils-1.2.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/portlet-api-1.0.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/servlet-api-2.4.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/servlet-api.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/sitemesh-2.4.2.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/spring-aop-4.1.6.RELEASE.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/spring-beans-4.1.6.RELEASE.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/spring-context-4.1.6.RELEASE.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/spring-context-support-4.1.6.RELEASE.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/spring-core-4.1.6.RELEASE.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/spring-expression-4.1.6.RELEASE-javadoc.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/spring-expression-4.1.6.RELEASE-sources.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/spring-expression-4.1.6.RELEASE.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/spring-jdbc-4.1.6.RELEASE.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/spring-tx-4.1.6.RELEASE.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/struts2-core-2.5-BETA2.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/struts2-json-plugin-2.5-BETA2.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/validation-api-1.1.0.Final.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/velocity-1.6.4.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/velocity-tools-1.3.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/xml-apis-1.0.b2.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/xmlpull-1.1.3.1.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/xpp3_min-1.1.4c.jar"/>
+    <pathelement location="${basedir}/mis/web/WEB-INF/lib/xstream-1.4.2.jar"/>
+    <fileset dir="${basedir}/web/web/WEB-INF/lib">
+      <patternset refid="library.patterns"/>
+    </fileset>
+  </path>
+  
+  
+  <patternset id="excluded.from.module.web">
+    <patternset refid="ignored.files"/>
+  </patternset>
+  
+  <patternset id="excluded.from.compilation.web">
+    <patternset refid="excluded.from.module.web"/>
+  </patternset>
+  
+  <path id="web.module.sourcepath">
+    <dirset dir="${module.web.basedir}">
+      <include name="src"/>
+    </dirset>
+  </path>
+  
+  
+  <target name="compile.module.web" depends="compile.module.web.production,compile.module.web.tests" description="Compile module web"/>
+  
+  <target name="compile.module.web.production" depends="register.custom.compilers" description="Compile module web; production classes">
+    <mkdir dir="${web.output.dir}"/>
+    <javac2 destdir="${web.output.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true" executable="${module.jdk.bin.web}/javac">
+      <compilerarg line="${compiler.args.web}"/>
+      <bootclasspath refid="web.module.bootclasspath"/>
+      <classpath refid="web.module.production.classpath"/>
+      <src refid="web.module.sourcepath"/>
+      <patternset refid="excluded.from.compilation.web"/>
+    </javac2>
+    
+    <copy todir="${web.output.dir}">
+      <fileset dir="${module.web.basedir}/src">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+    </copy>
+
+    <copy todir="/tmp/">
+      <fileset dir="${module.web.basedir}/src">
+        <type type="file"/>
+      </fileset>
+    </copy>
+
+      <echo message="hello, kidsbook web module" />
+  </target>
+  
+  <target name="compile.module.web.tests" depends="register.custom.compilers,compile.module.web.production" description="compile module web; test classes" unless="skip.tests"/>
+  
+  <target name="clean.module.web" description="cleanup module">
+    <delete dir="${web.output.dir}"/>
+    <delete dir="${web.testoutput.dir}"/>
+  </target>
+</project>

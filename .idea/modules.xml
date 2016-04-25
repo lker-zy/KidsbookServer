@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/KidsbookServer.iml" filepath="$PROJECT_DIR$/KidsbookServer.iml" />
+      <module fileurl="file://$PROJECT_DIR$/crawler-post/crawler-post.iml" filepath="$PROJECT_DIR$/crawler-post/crawler-post.iml" />
+      <module fileurl="file://$PROJECT_DIR$/kidsbook-common/kidsbook-common.iml" filepath="$PROJECT_DIR$/kidsbook-common/kidsbook-common.iml" />
+      <module fileurl="file://$PROJECT_DIR$/mis/mis.iml" filepath="$PROJECT_DIR$/mis/mis.iml" />
+      <module fileurl="file://$PROJECT_DIR$/user/user.iml" filepath="$PROJECT_DIR$/user/user.iml" />
+      <module fileurl="file://$PROJECT_DIR$/web/web.iml" filepath="$PROJECT_DIR$/web/web.iml" />
+    </modules>
+  </component>
+</project>

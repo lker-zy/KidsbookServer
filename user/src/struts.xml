@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+        "http://struts.apache.org/dtds/struts-2.3.dtd">
+
+<struts>
+<constant name="struts.devMode" value="true" />
+<constant name="struts.enable.DynamicMethodInvocation" value="true" />
+<package name="web" extends="json-default" namespace="/">
+    <action name="login"
+            class="com.xuewen.kidsbook.user.action.LoginAction" method="execute">
+        <result type="json">
+            <!-- 这里指定将被Struts2序列化的属性，该属性在action中必须有对应的getter方法 -->
+            <param name="root">retJsonMap</param>
+        </result>
+    </action>
+
+    <action name="reg"
+            class="com.xuewen.kidsbook.user.action.RegisterAction" method="execute">
+        <result type="json">
+            <!-- 这里指定将被Struts2序列化的属性，该属性在action中必须有对应的getter方法 -->
+            <param name="root">retJsonMap</param>
+        </result>
+    </action>
+</package>
+</struts>

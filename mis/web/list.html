@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <title>列表页 - 最美童书 - 后台管理</title>
+
+    <!-- Bootstrap -->
+    <link href="http://cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">
+    <link href="http://cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap-theme.min.css" rel="stylesheet">
+    <link href="http://v3.bootcss.com/examples/dashboard/dashboard.css" rel="stylesheet">
+
+    <!-- Generic page styles -->
+    <link rel="stylesheet" href="webres/fileupload/css/style.css">
+    <!-- CSS to style the file input field as button and adjust the Bootstrap progress bars -->
+    <link rel="stylesheet" href="webres/fileupload/css/jquery.fileupload.css">
+
+    <link rel="stylesheet" href="webres/css/kidsbook.css">
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="//cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+
+    <script src="//cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+<body>
+
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">最美童书馆 - 管理后台</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="#">Dashboard</a></li>
+                <li><a href="#">Settings</a></li>
+                <li><a href="#">Profile</a></li>
+                <li><a href="#">Help</a></li>
+            </ul>
+            <form class="navbar-form navbar-right">
+                <input type="text" class="form-control" placeholder="Search...">
+            </form>
+        </div>
+    </div>
+</nav>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-3 col-md-2 sidebar">
+            <ul class="nav nav-sidebar" id="bookMenu">
+                <li class="active"><a href="#">平台书库 <span class="sr-only">(current)</span></a></li>
+                <li><a href="add.html">图书添加</a></li>
+                <li><a href="series.html">图书系列</a></li>
+            </ul>
+            <ul class="nav nav-sidebar">
+                <li><a href="">用户统计</a></li>
+                <li><a href="">用户管理</a></li>
+            </ul>
+            <ul class="nav nav-sidebar">
+                <li><a href="">活动配置</a></li>
+                <li><a href="">合作方管理</a></li>
+            </ul>
+        </div>
+
+
+        <!-- Main Content Area -->
+        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+            <ol class="breadcrumb">
+                <li><a href="#">Home</a></li>
+                <li><a href="#">图书</a></li>
+                <li class="active">图书统计</li>
+            </ol>
+
+            <div class="alert alert-success">
+                <button type="button" class="close" data-dismiss="alert">×</button>
+                <strong>注意!</strong> 当前是在测试环境.
+            </div>
+
+            <div class="row placeholders">
+                <div class="col-xs-6 col-sm-3 placeholder">
+                    <img data-src="holder.js/200x200/auto/sky" class="img-responsive" alt="Generic placeholder thumbnail">
+                    <h4>当前图书库总量</h4>
+                    <span class="text-muted">100</span>
+                </div>
+                <div class="col-xs-6 col-sm-3 placeholder">
+                    <img data-src="holder.js/200x200/auto/vine" class="img-responsive" alt="Generic placeholder thumbnail">
+                    <h4>今日新书</h4>
+                    <span class="text-muted">0</span>
+                </div>
+                <div class="col-xs-6 col-sm-3 placeholder">
+                    <img data-src="holder.js/200x200/auto/sky" class="img-responsive" alt="Generic placeholder thumbnail">
+                    <h4>今日购买量</h4>
+                    <span class="text-muted">100</span>
+                </div>
+                <div class="col-xs-6 col-sm-3 placeholder">
+                    <img data-src="holder.js/200x200/auto/vine" class="img-responsive" alt="Generic placeholder thumbnail">
+                    <h4>今日浏览量</h4>
+                    <span class="text-muted">10240</span>
+                </div>
+            </div>
+
+            <h2 class="sub-header">图书列表</h2>
+
+            <div class="table-responsive">
+                <table id="books-table"
+                       class="table table-striped"
+                       data-toggle="table"
+                       data-show-toggle="true"
+                       data-show-columns="true"
+                       data-detail-view="true"
+                       data-pagination="true"
+                       data-side-pagination="server"
+                       data-page-list="[5,10]"
+                       data-url="list.action"
+                       data-search="true">
+                    <thead>
+                        <tr>
+                            <th data-field="DDId"
+                                data-width="100px">#</th>
+                            <th data-field="name"
+                                data-width="200px">书名</th>
+                            <th data-field="author">作者</th>
+                            <th data-field="desc">简介</th>
+                            <th data-field="price">价格</th>
+                            <th data-field="operations"
+                                data-align="center"
+                                data-events="operateEvents"
+                                data-formatter="operationsFormatter">操作</th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Upload Modal -->
+<div class="modal fade" id="uploadModal" tabindex="-1" role="dialog" aria-labelledby="uploadModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="uploadModalLabel">上传图书图片</h4>
+            </div>
+
+            <div class="modal-body">
+                <div class="container">
+                    <!-- The fileinput-button span is used to style the file input field as button -->
+                    <span class="btn btn-success fileinput-button">
+                        <i class="glyphicon glyphicon-plus"></i>
+                        <span>Select files...</span>
+                        <!-- The file input field used as target for the file upload widget -->
+                        <input id="fileupload" type="file" name="upload" multiple>
+                    </span>
+                    <br>
+                    <br>
+                    <!-- The global progress bar -->
+                    <div id="progress" class="progress" style="width: 45%">
+                        <div class="progress-bar progress-bar-success"></div>
+                    </div>
+                    <!-- The container for the uploaded files -->
+                    <div id="files" class="files"></div>
+                    <br>
+                </div>
+
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Delete modal -->
+<div class="modal fade" id="bookDeleteModal" tabindex="-1" role="dialog" aria-labelledby="bookDeleteModalLabel">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="bookDeleteModalLabel">确认删除?</h4>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-primary" id="deleteConfirm">Delete</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Edit Modal -->
+<div class="modal fade" id="bookEditModal" tabindex="-1" role="dialog" aria-labelledby="bookEditModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="bookEditModalLabel">图书编辑</h4>
+            </div>
+
+            <div class="modal-body">
+                <ul class="nav nav-pills" id="edit-modal-tab">
+                    <li role="presentation" class="active"><a href="#modal-tab-base" data-toggle="tab">基础信息</a></li>
+                    <li role="presentation"><a href="#modal-tab-recommend" data-toggle="tab">导读编辑</a></li>
+                    <li role="presentation"><a href="#modal-tab-other" data-toggle="tab">活动配置</a></li>
+                </ul>
+
+                <br>
+
+                <div class="tab-content">
+                    <div class="tab-pane active" id="modal-tab-base">
+                        <div class="input-group input-group-sm">
+                            <span class="input-group-addon">个性书名</span>
+                            <input type="text" class="form-control" placeholder="newname" aria-describedby="sizing-addon3">
+                        </div>
+                        <br>
+                        <div class="input-group input-group-sm">
+                            <span class="input-group-addon">个性描述</span>
+                            <input type="text" class="form-control" placeholder="newdesc" aria-describedby="sizing-addon3">
+                        </div>
+                        <br>
+                        <div class="input-group input-group-sm">
+                            <span class="input-group-addon">童书定价</span>
+                            <input type="text" class="form-control"  aria-describedby="sizing-addon3" aria-label="price">
+                            <span class="input-group-addon">.00</span>
+                        </div>
+                    </div>
+
+                    <div class="tab-pane" id="modal-tab-recommend">
+                        <textarea class="form-control" rows="3"></textarea>
+                    </div>
+
+                    <div class="tab-pane" id="modal-tab-other">
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<script src="http://cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
+
+<script src="http://cdn.bootcss.com/blueimp-file-upload/9.10.4/vendor/jquery.ui.widget.js"></script>
+<script src="http://cdn.bootcss.com/blueimp-file-upload/9.10.4/jquery.fileupload.js"></script>
+<script src="http://cdn.bootcss.com/blueimp-file-upload/9.10.4/jquery.iframe-transport.js"></script>
+
+<!-- The Load Image plugin is included for the preview images and image resizing functionality -->
+<script src="http://blueimp.github.io/JavaScript-Load-Image/js/load-image.all.min.js"></script>
+<!-- The Canvas to Blob plugin is included for image resizing functionality -->
+<script src="http://blueimp.github.io/JavaScript-Canvas-to-Blob/js/canvas-to-blob.min.js"></script>
+<!-- The File Upload processing plugin -->
+<script src="webres/fileupload/js/jquery.fileupload-process.js"></script>
+<!-- The File Upload image preview & resize plugin -->
+<script src="webres/fileupload/js/jquery.fileupload-image.js"></script>
+<!-- The File Upload audio preview plugin -->
+<script src="webres/fileupload/js/jquery.fileupload-audio.js"></script>
+<!-- The File Upload video preview plugin -->
+<script src="webres/fileupload/js/jquery.fileupload-video.js"></script>
+<!-- The File Upload validation plugin -->
+<script src="webres/fileupload/js/jquery.fileupload-validate.js"></script>
+
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="http://cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="webres/css/bootstrap-table.css">
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="webres/js/bootstrap-table.js"></script>
+
+<!-- Latest compiled and minified Locales -->
+<!--
+<script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.10.1/locale/bootstrap-table-zh-CN.min.js"></script>
+-->
+
+<script>
+    var cur_operate_book_id = "";
+    /*jslint unparam: true, regexp: true */
+    /*global window, $ */
+    $(function () {
+        'use strict';
+        var url = "http://localhost:8080/imageupload";
+        var uploadButton = $('<button/>')
+            .addClass('btn btn-primary')
+            .prop('disabled', true)
+            .text('Processing...')
+            .on('click', function () {
+                var $this = $(this),
+                        data = $this.data();
+                $this
+                        .off('click')
+                        .text('Abort')
+                        .on('click', function () {
+                            $this.remove();
+                            data.abort();
+                        });
+                data.submit().always(function () {
+                    $this.remove();
+                });
+            });
+        $('#fileupload').fileupload({
+            url: url,
+            dataType: 'json',
+            autoUpload: false,
+            acceptFileTypes: /(\.|\/)(gif|jpe?g|png)$/i,
+            maxFileSize: 99900000,
+            // Enable image resizing, except for Android and Opera,
+            // which actually support image resizing, but fail to
+            // send Blob objects via XHR requests:
+            disableImageResize: /Android(?!.*Chrome)|Opera/
+                    .test(window.navigator.userAgent),
+            previewMaxWidth: 100,
+            previewMaxHeight: 100,
+            previewCrop: true
+        }).on('fileuploadadd', function (e, data) {
+            data.context = $('<div/>').appendTo('#files');
+            $.each(data.files, function (index, file) {
+                var node = $('<p/>')
+                        .append($('<span/>').text(file.name));
+                if (!index) {
+                    node.append('<br>')
+                        .append(uploadButton.clone(true).data(data));
+                }
+                node.appendTo(data.context);
+            });
+        }).on('fileuploadprocessalways', function (e, data) {
+            var index = data.index,
+                    file = data.files[index],
+                    node = $(data.context.children()[index]);
+            if (file.preview) {
+                node.prepend('<br>')
+                    .prepend(file.preview);
+            }
+            if (file.error) {
+                node.append('<br>')
+                    .append($('<span class="text-danger"/>').text(file.error));
+            }
+            if (index + 1 === data.files.length) {
+                data.context.find('button')
+                        .text('Upload')
+                        .prop('disabled', !!data.files.error);
+            }
+        }).on('fileuploadprogressall', function (e, data) {
+            var progress = parseInt(data.loaded / data.total * 100, 10);
+            $('#progress .progress-bar').css(
+                    'width',
+                    progress + '%'
+            );
+            $('#progress .progress-bar').html(
+                    progress + '%'
+            );
+        }).on('fileuploaddone', function (e, data) {
+            $.each(data.result.files, function (index, file) {
+                if (file.url) {
+                    var link = $('<a>')
+                            .attr('target', '_blank')
+                            .prop('href', file.url);
+                    $(data.context.children()[index])
+                            .wrap(link);
+                } else if (file.error) {
+                    var error = $('<span class="text-danger"/>').text(file.error);
+                    $(data.context.children()[index])
+                            .append('<br>')
+                            .append(error);
+                }
+            });
+        }).on('fileuploadfail', function (e, data) {
+            $.each(data.files, function (index) {
+                var error = $('<span class="text-danger"/>').text('File upload failed.');
+                $(data.context.children()[index])
+                        .append('<br>')
+                        .append(error);
+            });
+        }).prop('disabled', !$.support.fileInput)
+                .parent().addClass($.support.fileInput ? undefined : 'disabled');
+    });
+
+    function operationsFormatter(value, row, index) {
+        /*****************
+         "<button type='button' class='btn btn-primary btn-lg' data-toggle='modal' data-target='#uploadModal'>上传</button>",
+         "<button type='button' class='btn btn-primary btn-lg' data-toggle='modal' data-target='#uploadModal'>编辑</button>",
+         *******************/
+        var book_id = row['id'];
+        return [
+            '<a class="upload-img" href="javascript:void(0)" title="上传图片">',
+            '<i class="glyphicon glyphicon-upload"></i>',
+            '</a>',
+            '<a class="delete-book" href="javascript:void(0)" title="删除图书">',
+            '<i class="glyphicon glyphicon-remove"></i>',
+            '</a>',
+            '<a class="edit-book" href="javascript:void(0)" title="编辑图书">',
+            '<i class="glyphicon glyphicon-pencil"></i>',
+            '</a>'
+        ].join('');
+    }
+
+</script>
+
+<script>
+    var $table = $("#books-table");
+
+    window.operateEvents = {
+        'click .upload-img': function (e, value, row, index) {
+            cur_operate_book_id = row['id'];
+            $('#uploadModal').modal('toggle');
+        },
+        'click .edit-book': function (e, value, row, index) {
+            cur_operate_book_id = row['id'];
+            $('#bookEditModal').modal('toggle');
+        },
+        'click .delete-book': function (e, value, row, index) {
+            cur_operate_book_id = row['id'];
+            $('#bookDeleteModal').modal('toggle');
+        }
+    };
+
+
+    /*
+    $('#books-table').on('load-success.bs.table', function (e, data) {
+        $('#books-table').bootstrapTable('updateCell',
+                {index:"1",
+                 field:"operations",
+                 value: "<button type='button' class='btn btn-primary btn-lg' data-toggle='modal' data-target='#uploadModal'>上传</button>"
+                });
+    });
+    */
+
+    $('#uploadModal').on('hidden.bs.modal', function(e){
+        $('#files').html("");
+        $('#progress .progress-bar').css(
+                'width', '0%'
+        );
+        $('#progress .progress-bar').html("");
+    });
+
+    /***************************************************
+     * replace with tag(data-toggle='tab') on all <a> *
+     ***************************************************/
+    /*
+    $(function () {
+        $('#edit-modal-tab a').click(function (e){
+            e.preventDefault();
+            $(this).tab('show');
+        })
+
+    })
+    */
+
+    $table.on('expand-row.bs.table', function (e, index, row, $detail) {
+        $detail.html('loading data...');
+
+        $.get('edit-book.html?a=1', function (res) {
+            $detail.html(res);
+        });
+    });
+
+    $('#deleteConfirm').on('click', function() {
+        var post_data = "id=" + cur_operate_book_id;
+        $.ajax({
+            type: "POST",
+            url: "del.action",
+            data: post_data,
+            dataType: "json",
+            success: function(msg){
+                if (msg.errno == 0) {
+                    alert("delete successfully");
+                    $('#bookDeleteModal').modal('hide');
+                } else {
+                    alert("submit to server failed");
+                }
+
+                return true;
+            },
+            error: function() {
+                alert("服务器异常");
+            }
+        });
+
+    })
+
+</script>
+
+</body>
+</html>

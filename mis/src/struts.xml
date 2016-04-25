@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+        "http://struts.apache.org/dtds/struts-2.3.dtd">
+
+<struts>
+    <constant name="struts.devMode" value="true" />
+    <constant name="struts.enable.DynamicMethodInvocation" value="true" />
+    <package name="mis" extends="json-default" namespace="/">
+        <action name="list"
+                class="com.xuewen.kidsbook.mis.action.BookListAction" method="listJson">
+            <result type="json">
+                <!-- 这里指定将被Struts2序列化的属性，该属性在action中必须有对应的getter方法 -->
+                <param name="root">retJsonMap</param>
+            </result>
+        </action>
+        <action name="add_*"
+                class="com.xuewen.kidsbook.mis.action.BookAddAction" method="{1}">
+            <result type="json">
+                <!-- 这里指定将被Struts2序列化的属性，该属性在action中必须有对应的getter方法 -->
+                <param name="root">retJsonMap</param>
+            </result>
+        </action>
+        <action name="del"
+                class="com.xuewen.kidsbook.mis.action.BookDelAction" method="execute">
+            <result type="json">
+                <!-- 这里指定将被Struts2序列化的属性，该属性在action中必须有对应的getter方法 -->
+                <param name="root">retJsonMap</param>
+            </result>
+        </action>
+
+        <action name="gsearch"
+                class="com.xuewen.kidsbook.mis.action.GlobalSearchAction" method="execute">
+            <result type="json">
+                <!-- 这里指定将被Struts2序列化的属性，该属性在action中必须有对应的getter方法 -->
+                <param name="root">retJsonMap</param>
+            </result>
+        </action>
+        <action name="imageupload"
+                class="com.xuewen.kidsbook.mis.action.ImageUploadAction" method="upload">
+            <result type="json">
+                <!-- 这里指定将被Struts2序列化的属性，该属性在action中必须有对应的getter方法 -->
+                <param name="root">retJsonMap</param>
+            </result>
+        </action>
+    </package>
+</struts>

@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="module_user" default="compile.module.user">
+  <dirname property="module.user.basedir" file="${ant.file.module_user}"/>
+  
+  <property name="module.jdk.home.user" value="${project.jdk.home}"/>
+  <property name="module.jdk.bin.user" value="${project.jdk.bin}"/>
+  <property name="module.jdk.classpath.user" value="${project.jdk.classpath}"/>
+  
+  <property name="compiler.args.user" value="-encoding UTF-8 -source 8 -target 8 ${compiler.args}"/>
+  
+  <property name="user.output.dir" value="${module.user.basedir}/../out/production/user"/>
+  <property name="user.testoutput.dir" value="${module.user.basedir}/../out/test/user"/>
+  
+  <path id="user.module.bootclasspath">
+    <!-- Paths to be included in compilation bootclasspath -->
+  </path>
+  
+  <path id="user.module.production.classpath">
+    <path refid="${module.jdk.classpath.user}"/>
+    <path refid="library.lib.classpath"/>
+    <fileset dir="${basedir}/user/web/WEB-INF/lib">
+      <patternset refid="library.patterns"/>
+    </fileset>
+  </path>
+  
+  <path id="user.runtime.production.module.classpath">
+    <pathelement location="${user.output.dir}"/>
+    <fileset dir="${basedir}/user/web/WEB-INF/lib">
+      <patternset refid="library.patterns"/>
+    </fileset>
+  </path>
+  
+  <path id="user.module.classpath">
+    <path refid="${module.jdk.classpath.user}"/>
+    <pathelement location="${user.output.dir}"/>
+    <path refid="library.lib.classpath"/>
+    <fileset dir="${basedir}/user/web/WEB-INF/lib">
+      <patternset refid="library.patterns"/>
+    </fileset>
+  </path>
+  
+  <path id="user.runtime.module.classpath">
+    <pathelement location="${user.testoutput.dir}"/>
+    <pathelement location="${user.output.dir}"/>
+    <path refid="library.lib.classpath"/>
+    <fileset dir="${basedir}/user/web/WEB-INF/lib">
+      <patternset refid="library.patterns"/>
+    </fileset>
+  </path>
+  
+  
+  <patternset id="excluded.from.module.user">
+    <patternset refid="ignored.files"/>
+  </patternset>
+  
+  <patternset id="excluded.from.compilation.user">
+    <patternset refid="excluded.from.module.user"/>
+  </patternset>
+  
+  <path id="user.module.sourcepath">
+    <dirset dir="${module.user.basedir}">
+      <include name="src"/>
+    </dirset>
+  </path>
+  
+  
+  <target name="compile.module.user" depends="compile.module.user.production,compile.module.user.tests" description="Compile module user"/>
+  
+  <target name="compile.module.user.production" depends="register.custom.compilers" description="Compile module user; production classes">
+    <mkdir dir="${user.output.dir}"/>
+    <javac2 destdir="${user.output.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true" executable="${module.jdk.bin.user}/javac">
+      <compilerarg line="${compiler.args.user}"/>
+      <bootclasspath refid="user.module.bootclasspath"/>
+      <classpath refid="user.module.production.classpath"/>
+      <src refid="user.module.sourcepath"/>
+      <patternset refid="excluded.from.compilation.user"/>
+    </javac2>
+    
+    <copy todir="${user.output.dir}">
+      <fileset dir="${module.user.basedir}/src">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+    </copy>
+  </target>
+  
+  <target name="compile.module.user.tests" depends="register.custom.compilers,compile.module.user.production" description="compile module user; test classes" unless="skip.tests"/>
+  
+  <target name="clean.module.user" description="cleanup module">
+    <delete dir="${user.output.dir}"/>
+    <delete dir="${user.testoutput.dir}"/>
+  </target>
+</project>

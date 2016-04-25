@@ -1,0 +1,7 @@
+.textcut {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+#editor {overflow:scroll; max-height:300px}

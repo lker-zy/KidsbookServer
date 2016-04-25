@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="module_mis" default="compile.module.mis">
+  <dirname property="module.mis.basedir" file="${ant.file.module_mis}"/>
+  
+  <property name="module.jdk.home.mis" value="${project.jdk.home}"/>
+  <property name="module.jdk.bin.mis" value="${project.jdk.bin}"/>
+  <property name="module.jdk.classpath.mis" value="${project.jdk.classpath}"/>
+  
+  <property name="compiler.args.mis" value="-encoding UTF-8 -source 8 -target 8 ${compiler.args}"/>
+  
+  <property name="mis.output.dir" value="${module.mis.basedir}/web/WEB-INF/classes"/>
+  <property name="mis.testoutput.dir" value="${module.mis.basedir}/web/WEB-INF/classes"/>
+  
+  <path id="mis.module.bootclasspath">
+    <!-- Paths to be included in compilation bootclasspath -->
+  </path>
+  
+  <path id="mis.module.production.classpath">
+    <path refid="${module.jdk.classpath.mis}"/>
+    <pathelement location="${kidsbook-common.output.dir}"/>
+    <fileset dir="${basedir}/mis/web/WEB-INF/lib">
+      <patternset refid="library.patterns"/>
+    </fileset>
+  </path>
+  
+  <path id="mis.runtime.production.module.classpath">
+    <pathelement location="${mis.output.dir}"/>
+    <path refid="kidsbook-common.runtime.production.module.classpath"/>
+    <fileset dir="${basedir}/mis/web/WEB-INF/lib">
+      <patternset refid="library.patterns"/>
+    </fileset>
+  </path>
+  
+  <path id="mis.module.classpath">
+    <path refid="${module.jdk.classpath.mis}"/>
+    <pathelement location="${mis.output.dir}"/>
+    <pathelement location="${kidsbook-common.testoutput.dir}"/>
+    <pathelement location="${kidsbook-common.output.dir}"/>
+    <fileset dir="${basedir}/mis/web/WEB-INF/lib">
+      <patternset refid="library.patterns"/>
+    </fileset>
+  </path>
+  
+  <path id="mis.runtime.module.classpath">
+    <pathelement location="${mis.output.dir}"/>
+    <path refid="kidsbook-common.runtime.module.classpath"/>
+    <fileset dir="${basedir}/mis/web/WEB-INF/lib">
+      <patternset refid="library.patterns"/>
+    </fileset>
+  </path>
+  
+  
+  <patternset id="excluded.from.module.mis">
+    <patternset refid="ignored.files"/>
+  </patternset>
+  
+  <patternset id="excluded.from.compilation.mis">
+    <patternset refid="excluded.from.module.mis"/>
+  </patternset>
+  
+  <path id="mis.module.sourcepath">
+    <dirset dir="${module.mis.basedir}">
+      <include name="src"/>
+    </dirset>
+  </path>
+  
+  
+  <target name="compile.module.mis" depends="compile.module.mis.production,compile.module.mis.tests" description="Compile module mis"/>
+  
+  <target name="compile.module.mis.production" depends="register.custom.compilers,compile.module.kidsbook-common" description="Compile module mis; production classes">
+    <mkdir dir="${mis.output.dir}"/>
+    <javac2 destdir="${mis.output.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true" executable="${module.jdk.bin.mis}/javac">
+      <compilerarg line="${compiler.args.mis}"/>
+      <bootclasspath refid="mis.module.bootclasspath"/>
+      <classpath refid="mis.module.production.classpath"/>
+      <src refid="mis.module.sourcepath"/>
+      <patternset refid="excluded.from.compilation.mis"/>
+    </javac2>
+    
+    <copy todir="${mis.output.dir}">
+      <fileset dir="${module.mis.basedir}/src">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+    </copy>
+  </target>
+  
+  <target name="compile.module.mis.tests" depends="register.custom.compilers,compile.module.mis.production" description="compile module mis; test classes" unless="skip.tests"/>
+  
+  <target name="clean.module.mis" description="cleanup module">
+    <delete dir="${mis.output.dir}"/>
+    <delete dir="${mis.testoutput.dir}"/>
+  </target>
+</project>
