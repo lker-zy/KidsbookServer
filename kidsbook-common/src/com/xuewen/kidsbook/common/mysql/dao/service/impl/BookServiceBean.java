@@ -29,10 +29,10 @@ public class BookServiceBean implements BookService {
     @Override
     public Long save(Book book) {
         jdbcTemplate.update("insert into " + TABLE +
-                            "(name, ddid, isbn, author, descript, price, pub_org) " + "" +
-                            "values(?, ?, ?, ?, ?, ?, ?)",
-                            new Object[] {book.getName(), book.getDDId(), book.getIsbn(), book.getAuthor(), book.getDesc(), book.getPrice(), book.getPublishOrg()},
-                            new int[] {Types.VARCHAR, Types.CHAR, Types.CHAR, Types.VARCHAR, Types.VARCHAR, Types.CHAR, Types.CHAR}
+                            "(name, ddid, isbn, author, descript, price, pub_org, img_url) " + "" +
+                            "values(?, ?, ?, ?, ?, ?, ?, ?)",
+                            new Object[] {book.getName(), book.getDDId(), book.getIsbn(), book.getAuthor(), book.getDesc(), book.getPrice(), book.getPublishOrg(), book.getImgUrl()},
+                            new int[] {Types.VARCHAR, Types.CHAR, Types.CHAR, Types.VARCHAR, Types.VARCHAR, Types.CHAR, Types.CHAR, Types.VARCHAR}
                 );
 
         Long id = lastInsertId();

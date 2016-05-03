@@ -17,6 +17,7 @@ public class ReviewRowMapper implements RowMapper {
         bookReview.setAuthor(resultSet.getString("author"));
         bookReview.setTitle(resultSet.getString("title"));
         bookReview.setContent(resultSet.getString("content"));
+        bookReview.setBookId(resultSet.getLong("book_id"));
         return bookReview;
     }
 }

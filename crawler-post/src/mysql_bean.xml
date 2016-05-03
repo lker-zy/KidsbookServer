@@ -10,8 +10,8 @@
         <property name="driverClassName" value="com.mysql.jdbc.Driver" />
         <property name="url"
             value="jdbc:mysql://180.76.176.227:3306/kidsbook?useUnicode=true&amp;characterEncoding=UTF-8" />
-        <property name="username" value="root" />
-        <property name="password" value="lker" />
+        <property name="username" value="xuewen" />
+        <property name="password" value="xuewen" />
         <!-- 连接池启动时的初始值 -->
         <property name="initialSize" value="1" />
         <!-- 连接池的最大值 -->

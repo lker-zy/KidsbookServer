@@ -45,4 +45,12 @@
         <!-- 向属性dataSource注入数据源 -->
         <property name="dataSource" ref="dataSource"></property>
     </bean>
+    <bean id="activityService" class="com.xuewen.kidsbook.common.mysql.dao.service.impl.ActivityServiceBean">
+        <!-- 向属性dataSource注入数据源 -->
+        <property name="dataSource" ref="dataSource"></property>
+    </bean>
+    <bean id="crowdService" class="com.xuewen.kidsbook.common.mysql.dao.service.impl.CrowdServiceBean">
+        <!-- 向属性dataSource注入数据源 -->
+        <property name="dataSource" ref="dataSource"></property>
+    </bean>
 </beans>

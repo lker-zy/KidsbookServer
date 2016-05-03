@@ -56,6 +56,7 @@ public class BookList {
 
         List<String> result = this.redis.getJedis().hmget(REDIS_BOOK_PREFIX + book.getDDId(),
                                                         "name", "author", "ddprice", "img_url");
+        System.out.println("Img url : " + result.get(3));
         book.setName(result.get(0));
         book.setAuthor(result.get(1));
         book.setPrice(result.get(2));

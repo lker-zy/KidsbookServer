@@ -162,7 +162,7 @@ public class Book {
         jsonMap.put("DDId", getDDId());
         jsonMap.put("isbn", getIsbn());
         jsonMap.put("puborg", getPublishOrg());
-        //jsonMap.put("img", "http://img3x8.ddimg.cn/20/14/22489058-1_l_1.jpg");
+        jsonMap.put("imageUrl", getImgUrl());
         jsonMap.put("img", getImgUrl());
 
         return jsonMap;

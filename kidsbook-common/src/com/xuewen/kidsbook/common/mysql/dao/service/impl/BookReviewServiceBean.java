@@ -1,12 +1,14 @@
 package com.xuewen.kidsbook.common.mysql.dao.service.impl;
 
-import com.xuewen.kidsbook.common.book.Book;
 import com.xuewen.kidsbook.common.book.BookReview;
 import com.xuewen.kidsbook.common.mysql.dao.service.ReviewService;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 import javax.sql.DataSource;
 import java.sql.Types;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 import java.util.logging.Logger;
 
 /**
@@ -20,6 +22,7 @@ public class BookReviewServiceBean implements ReviewService {
     private JdbcTemplate jdbcTemplate;
 
     public void setDataSource(DataSource dataSource) {
+        this.dataSource = dataSource;
         this.jdbcTemplate = new JdbcTemplate(dataSource);
     }
 
@@ -49,5 +52,30 @@ public class BookReviewServiceBean implements ReviewService {
         );
 
         return bookReview;
+    }
+
+    @Override
+    public List<BookReview> list() {
+        List<Map<String, Object>> reviews = jdbcTemplate.queryForList(
+                "select id, author, book_id, title from " + TABLE + " where id > ?",
+                new Object[] {0},
+                new int[] {Types.INTEGER});
+
+        List<BookReview> results = new ArrayList<>();
+
+        System.out.println("result num: " + reviews.size());
+
+        for (int i = 0; i < reviews.size(); ++i) {
+            Map<String, Object> resultLine = reviews.get(i);
+            BookReview bookReview = new BookReview();
+            bookReview.setId((Long) resultLine.get("id"));
+            bookReview.setAuthor((String) resultLine.get("author"));
+            bookReview.setBookId((Long) resultLine.get("book_id"));
+            bookReview.setTitle((String) resultLine.get("title"));
+
+            results.add(bookReview);
+        }
+
+        return results;
     }
 }

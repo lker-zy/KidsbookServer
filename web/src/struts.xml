@@ -23,5 +23,51 @@
                 <param name="root">retJsonMap</param>
             </result>
         </action>
+
+        <action name="listEssence"
+                class="com.xuewen.kidsbook.web.action.EssenceList" method="execute">
+            <result type="json">
+                <!-- 这里指定将被Struts2序列化的属性，该属性在action中必须有对应的getter方法 -->
+                <param name="root">retJsonMap</param>
+            </result>
+        </action>
+
+        <action name="detailEssence"
+                class="com.xuewen.kidsbook.web.action.EssenceDetail" method="execute">
+            <result type="json">
+                <!-- 这里指定将被Struts2序列化的属性，该属性在action中必须有对应的getter方法 -->
+                <param name="root">retJsonMap</param>
+            </result>
+        </action>
+
+        <action name="listActivity"
+                class="com.xuewen.kidsbook.web.action.ActivityList" method="execute">
+            <result type="json">
+                <!-- 这里指定将被Struts2序列化的属性，该属性在action中必须有对应的getter方法 -->
+                <param name="root">retJsonMap</param>
+            </result>
+        </action>
+
+        <action name="listReports"
+                class="com.xuewen.kidsbook.web.action.CrowdReports" method="execute">
+            <result type="json">
+                <!-- 这里指定将被Struts2序列化的属性，该属性在action中必须有对应的getter方法 -->
+                <param name="root">retJsonMap</param>
+            </result>
+        </action>
+        <action name="listCrowdApply"
+                class="com.xuewen.kidsbook.web.action.CrowdApplyList" method="execute">
+            <result type="json">
+                <!-- 这里指定将被Struts2序列化的属性，该属性在action中必须有对应的getter方法 -->
+                <param name="root">retJsonMap</param>
+            </result>
+        </action>
+        <action name="reportsOverview"
+                class="com.xuewen.kidsbook.web.action.CrowdReportsOverview" method="execute">
+            <result type="json">
+                <!-- 这里指定将被Struts2序列化的属性，该属性在action中必须有对应的getter方法 -->
+                <param name="root">retJsonMap</param>
+            </result>
+        </action>
     </package>
 </struts>

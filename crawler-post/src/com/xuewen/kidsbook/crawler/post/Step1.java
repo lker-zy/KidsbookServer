@@ -30,7 +30,6 @@ public class Step1 {
             Book book = bookIter.next();
             System.out.println("BOOK Name: " + book.getName());
             this.parseDetail(book);
-            break;
         }
     }
 

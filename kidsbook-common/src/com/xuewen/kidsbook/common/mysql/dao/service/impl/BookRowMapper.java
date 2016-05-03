@@ -21,6 +21,7 @@ public class BookRowMapper implements RowMapper {
         book.setIsbn(rs.getString("isbn"));
         book.setPublishOrg(rs.getString("pub_org"));
         book.setDDId(rs.getString("ddid"));
+        book.setImgUrl(rs.getString("img_url"));
 
         return book;
     }
