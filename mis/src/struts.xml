@@ -44,5 +44,12 @@
                 <param name="root">retJsonMap</param>
             </result>
         </action>
+        <action name="addActivity"
+                class="com.xuewen.kidsbook.mis.action.ActivityAddAction" method="execute">
+            <result type="json">
+                <!-- 这里指定将被Struts2序列化的属性，该属性在action中必须有对应的getter方法 -->
+                <param name="root">retJsonMap</param>
+            </result>
+        </action>
     </package>
 </struts>

@@ -10,6 +10,7 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.security.MessageDigest;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -61,6 +62,34 @@ public class ImageUploadAction extends CommonJsonAction {
     public String path = ServletActionContext.getServletContext().getRealPath(
             File.separator + "WEB-INF" + File.separator + "file");
 
+    /***
+     * MD5加码 生成32位md5码
+     */
+    public static String string2MD5(String inStr){
+        MessageDigest md5 = null;
+        try{
+            md5 = MessageDigest.getInstance("MD5");
+        }catch (Exception e){
+            System.out.println(e.toString());
+            e.printStackTrace();
+            return "";
+        }
+        char[] charArray = inStr.toCharArray();
+        byte[] byteArray = new byte[charArray.length];
+
+        for (int i = 0; i < charArray.length; i++)
+            byteArray[i] = (byte) charArray[i];
+        byte[] md5Bytes = md5.digest(byteArray);
+        StringBuffer hexValue = new StringBuffer();
+        for (int i = 0; i < md5Bytes.length; i++){
+            int val = ((int) md5Bytes[i]) & 0xff;
+            if (val < 16)
+                hexValue.append("0");
+            hexValue.append(Integer.toHexString(val));
+        }
+        return hexValue.toString();
+    }
+
     /**
      * 新文件上传
      *
@@ -70,16 +99,20 @@ public class ImageUploadAction extends CommonJsonAction {
         List<Map<String, Object>> files = new ArrayList<>();
         Map<String, Object> fileJsonMap = new HashMap<>();
 
+        String imageId = string2MD5(uploadFileName);
+
         fileJsonMap.put("url", "http://www.baidu.com");
         fileJsonMap.put("size", 1000);
         fileJsonMap.put("name", "test upload file");
+        fileJsonMap.put("imageId", imageId);
 
         files.add(fileJsonMap);
         retJsonMap.put("files", files);
 
         try {
             // 将Struts2自动封装的文件名赋给要写入的文件
-            storageFileName = uploadFileName;
+            //storageFileName = uploadFileName;
+            storageFileName = imageId;
             // 创建要写入的文件
             File storageFile = new File(path + File.separator + storageFileName);
             copy(upload, storageFile);

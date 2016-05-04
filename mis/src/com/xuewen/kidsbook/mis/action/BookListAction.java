@@ -73,6 +73,7 @@ public class BookListAction extends CommonJsonAction {
 
         for (int i = 0; i < books.size(); ++i) {
             Book book  = books.get(i);
+            book.setDesc(book.getDesc().substring(0, 100) + "...");
             jsonList.add(book.toJsonMap());
         }
 

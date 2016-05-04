@@ -1,7 +1,13 @@
 {
-  "files": [{
-    "name": "1",
-    "type": "fileName",
-    "size":"filePath"
-  }]
+  "total": 1,
+  "errmsg": "SUCCESS",
+  "rows": [{
+    "id": 1,
+    "name": "测试活动",
+    "address": "西单",
+    "contact": "15810535238",
+    "desc": "DESC",
+    "datetime": "2015-06-01"
+  }],
+  "status": "0"
 }

@@ -60,7 +60,7 @@
     <div class="row">
         <div class="col-sm-3 col-md-2 sidebar">
             <ul class="nav nav-sidebar" id="bookMenu">
-                <li class="active"><a href="#">平台书库 <span class="sr-only">(current)</span></a></li>
+                <li><a href="list.html">平台书库</a></li>
                 <li><a href="add.html">图书添加</a></li>
                 <li><a href="series.html">图书系列</a></li>
             </ul>
@@ -69,7 +69,7 @@
                 <li><a href="">用户管理</a></li>
             </ul>
             <ul class="nav nav-sidebar">
-                <li><a href="">活动配置</a></li>
+                <li class="active"><a href="#">活动配置 <span class="sr-only">(current)</span></a></li>
                 <li><a href="">合作方管理</a></li>
             </ul>
         </div>
@@ -79,8 +79,7 @@
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
             <ol class="breadcrumb">
                 <li><a href="#">Home</a></li>
-                <li><a href="#">图书</a></li>
-                <li class="active">图书统计</li>
+                <li class="active">活动配置</li>
             </ol>
 
             <div class="alert alert-success">
@@ -88,33 +87,10 @@
                 <strong>注意!</strong> 当前是在测试环境.
             </div>
 
-            <div class="row placeholders">
-                <div class="col-xs-6 col-sm-3 placeholder">
-                    <img data-src="holder.js/200x200/auto/sky" class="img-responsive" alt="Generic placeholder thumbnail">
-                    <h4>当前图书库总量</h4>
-                    <span class="text-muted">100</span>
-                </div>
-                <div class="col-xs-6 col-sm-3 placeholder">
-                    <img data-src="holder.js/200x200/auto/vine" class="img-responsive" alt="Generic placeholder thumbnail">
-                    <h4>今日新书</h4>
-                    <span class="text-muted">0</span>
-                </div>
-                <div class="col-xs-6 col-sm-3 placeholder">
-                    <img data-src="holder.js/200x200/auto/sky" class="img-responsive" alt="Generic placeholder thumbnail">
-                    <h4>今日购买量</h4>
-                    <span class="text-muted">100</span>
-                </div>
-                <div class="col-xs-6 col-sm-3 placeholder">
-                    <img data-src="holder.js/200x200/auto/vine" class="img-responsive" alt="Generic placeholder thumbnail">
-                    <h4>今日浏览量</h4>
-                    <span class="text-muted">10240</span>
-                </div>
-            </div>
-
-            <h2 class="sub-header">图书列表</h2>
+            <h2 class="sub-header">活动列表</h2>
 
             <div class="table-responsive">
-                <table id="books-table"
+                <table id="activity-table"
                        class="table table-striped"
                        data-toggle="table"
                        data-show-toggle="true"
@@ -123,17 +99,18 @@
                        data-pagination="true"
                        data-side-pagination="server"
                        data-page-list="[5,10]"
-                       data-url="list.action"
+                       data-url="test.json"
                        data-search="true">
                     <thead>
                         <tr>
-                            <th data-field="DDId"
-                                data-width="100px">#</th>
+                            <th data-field="id"
+                                data-width="100px">活动ID</th>
                             <th data-field="name"
-                                data-width="200px">书名</th>
-                            <th data-field="author">作者</th>
+                                data-width="200px">活动名称</th>
+                            <th data-field="datetime">活动时间</th>
                             <th data-field="desc">简介</th>
-                            <th data-field="price">价格</th>
+                            <th data-field="address">地址</th>
+                            <th data-field="contact">联系电话</th>
                             <th data-field="operations"
                                 data-align="center"
                                 data-events="operateEvents"
@@ -142,142 +119,34 @@
                     </thead>
                 </table>
             </div>
-        </div>
-    </div>
-</div>
 
-
-<!-- Upload Modal -->
-<div class="modal fade" id="uploadModal" tabindex="-1" role="dialog" aria-labelledby="uploadModalLabel">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="uploadModalLabel">上传图书图片</h4>
-            </div>
-
-            <div class="modal-body">
-                <div class="container">
-                    <!-- The fileinput-button span is used to style the file input field as button -->
-                    <span class="btn btn-success fileinput-button">
-                        <i class="glyphicon glyphicon-plus"></i>
-                        <span>Select files...</span>
-                        <!-- The file input field used as target for the file upload widget -->
-                        <input id="fileupload" type="file" name="upload" multiple>
-                    </span>
-                    <br>
-                    <br>
-                    <!-- The global progress bar -->
-                    <div id="progress" class="progress" style="width: 45%">
-                        <div class="progress-bar progress-bar-success"></div>
-                    </div>
-                    <!-- The container for the uploaded files -->
-                    <div id="files" class="files"></div>
-                    <br>
-                </div>
-
-            </div>
-
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- Delete modal -->
-<div class="modal fade" id="bookDeleteModal" tabindex="-1" role="dialog" aria-labelledby="bookDeleteModalLabel">
-    <div class="modal-dialog modal-sm">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="bookDeleteModalLabel">确认删除?</h4>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                <button type="button" class="btn btn-primary" id="deleteConfirm">Delete</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- Edit Modal -->
-<div class="modal fade" id="bookEditModal" tabindex="-1" role="dialog" aria-labelledby="bookEditModalLabel">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="bookEditModalLabel">图书编辑</h4>
-            </div>
-
-            <div class="modal-body">
-                <ul class="nav nav-pills" id="edit-modal-tab">
-                    <li role="presentation" class="active"><a href="#modal-tab-base" data-toggle="tab">基础信息</a></li>
-                    <li role="presentation"><a href="#modal-tab-recommend" data-toggle="tab">导读编辑</a></li>
-                    <li role="presentation"><a href="#modal-tab-other" data-toggle="tab">活动配置</a></li>
-                </ul>
-
+            <div class="modal-body" id="add-activity-div" style="display: none; background: bisque">
                 <br>
-
-                <div class="tab-content">
-                    <div class="tab-pane active" id="modal-tab-base">
-                        <div class="input-group input-group-sm">
-                            <span class="input-group-addon">个性书名</span>
-                            <input type="text" class="form-control" placeholder="newname" aria-describedby="sizing-addon3">
-                        </div>
-                        <br>
-                        <div class="input-group input-group-sm">
-                            <span class="input-group-addon">个性描述</span>
-                            <input type="text" class="form-control" placeholder="newdesc" aria-describedby="sizing-addon3">
-                        </div>
-                        <br>
-                        <div class="input-group input-group-sm">
-                            <span class="input-group-addon">童书定价</span>
-                            <input type="text" class="form-control"  aria-describedby="sizing-addon3" aria-label="price">
-                            <span class="input-group-addon">.00</span>
-                        </div>
-                    </div>
-
-                    <div class="tab-pane" id="modal-tab-recommend">
-                        <textarea class="form-control" rows="3"></textarea>
-                    </div>
-
-                    <div class="tab-pane" id="modal-tab-other">
-                    </div>
-                </div>
-            </div>
-
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- Modal for Add recommend paper -->
-<div class="modal fade" id="addBookReviewModal" tabindex="-1" role="dialog" aria-labelledby="addBookReviewModalLabel">
-    <div class="modal-dialog modal-lg" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="addBookReviewModalLabel">新增精选文章</h4>
-            </div>
-            <div class="modal-body">
-                <br>
-                <form id="book-review-form" role="form" method="post" action="/add_review"
+                <form id="add-activity-form" role="form" method="post" action="/add_review"
                       enctype="multipart/form-data" id='highQualitySubmitForm'>
-                    <div class="form-group">
-                        <label for="reviewTitle" class="control-label">文章标题:</label>
-                        <input type="text" name="reviewTitle" class="form-control" id="reviewTitle">
+                    <div class="input-group input-group-sm" data-width="100px">
+                        <span class="input-group-addon">活动名称</span>
+                        <input type="text" name="actName" class="form-control" aria-describedby="sizing-addon3">
                     </div>
-                    <div class="form-group">
-                        <label for="reviewAuthor" class="control-label">文章作者:</label>
-                        <input type="text" name="reviewAuthor" class="form-control" id="reviewAuthor">
+                    <br>
+                    <div class="input-group input-group-sm">
+                        <span class="input-group-addon">活动时间</span>
+                        <input type="text" name="actDate" class="form-control" aria-describedby="sizing-addon3">
+                    </div>
+                    <br>
+                    <div class="input-group input-group-sm">
+                        <span class="input-group-addon">联系方式</span>
+                        <input type="text" name="actContact" class="form-control" aria-describedby="sizing-addon3">
+                    </div>
+                    <br>
+                    <div class="input-group input-group-sm">
+                        <span class="input-group-addon">活动地点</span>
+                        <input type="text" name="actAddress" class="form-control" width="100px" aria-describedby="sizing-addon3">
                     </div>
 
-                    <label class="control-label">编辑文章:</label>
+                    <br>
+
+                    <label class="control-label">活动详情:</label>
                     <div class="btn-toolbar" data-role="editor-toolbar" data-target="#second-editor">
                         <div class="btn-group">
                             <a class="btn btn-default dropdown-toggle" data-toggle="dropdown"
@@ -322,14 +191,12 @@
                                 <button class="btn" type="button">Add</button>
                             </div>
                         </div>
-                        <!--
                         <div class="btn-group">
                             <a class="btn btn-default" data-edit="unlink" title="Remove Hyperlink"><i class="fa fa-unlink"></i></a>
                             <span class="btn btn-default" title="Insert picture (or just drag & drop)" id="pictureBtn"> <i class="fa fa-picture-o"></i>
                                 <input class="imgUpload" type="file" data-role="magic-overlay" data-target="#pictureBtn" data-edit="insertImage" />
                             </span>
                         </div>
-                        -->
                         <div class="btn-group">
                             <a class="btn btn-default" data-edit="undo" title="Undo (Ctrl/Cmd+Z)"><i class="fa fa-undo"></i></a>
                             <a class="btn btn-default" data-edit="redo" title="Redo (Ctrl/Cmd+Y)"><i class="fa fa-repeat"></i></a>
@@ -338,17 +205,59 @@
                     </div>
                     <div id="second-editor" class="lead" data-placeholder=""></div>
                     <div class="editorPreview"></div>
-                    <input type='hidden' name='reviewContent' id='bookReviewSubmit'/>
-                    <input type='hidden' name='bookId' id='newBookId'/>
+                    <input type='hidden' name='actDetail' id='activitySubmit'/>
+                    <input type='hidden' name='actImageId' id='actImageId'/>
                 </form>
+
+                <div class="container">
+                    <!-- The fileinput-button span is used to style the file input field as button -->
+                        <span class="btn btn-success fileinput-button">
+                            <i class="glyphicon glyphicon-plus"></i>
+                            <span>Select files...</span>
+                            <!-- The file input field used as target for the file upload widget -->
+                            <input id="fileupload" type="file" name="upload" multiple>
+                        </span>
+                    <br>
+                    <br>
+                    <!-- The global progress bar -->
+                    <div id="progress" class="progress" style="width: 45%">
+                        <div class="progress-bar progress-bar-success"></div>
+                    </div>
+                    <!-- The container for the uploaded files -->
+                    <div id="files" class="files"></div>
+                    <br>
+                </div>
+
+                </br>
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                <button type="button" class="btn btn-primary" id="add-activity-submit">提交</button>
+                </br>
+
+            </div>
+
+            <button type="button" class="btn btn-primary" id="add-activity-btn">新增活动</button>
+
+        </div>
+    </div>
+</div>
+
+
+<!-- Delete modal -->
+<div class="modal fade" id="bookDeleteModal" tabindex="-1" role="dialog" aria-labelledby="bookDeleteModalLabel">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="bookDeleteModalLabel">确认删除?</h4>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-                <button type="button" class="btn btn-primary" id="add-review-submit">提交</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-primary" id="deleteConfirm">Delete</button>
             </div>
         </div>
     </div>
 </div>
+
 
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 <script src="http://cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
@@ -392,7 +301,7 @@
     /*global window, $ */
     $(function () {
         'use strict';
-        var url = "http://localhost:8080/imageupload";
+        var url = "http://180.76.176.227/mis/imageupload";
         var uploadButton = $('<button/>')
             .addClass('btn btn-primary')
             .prop('disabled', true)
@@ -435,6 +344,7 @@
                         .append(uploadButton.clone(true).data(data));
                 }
                 node.appendTo(data.context);
+
             });
         }).on('fileuploadprocessalways', function (e, data) {
             var index = data.index,
@@ -470,6 +380,7 @@
                             .prop('href', file.url);
                     $(data.context.children()[index])
                             .wrap(link);
+                    $('#actImageId').val(file.imageId);
                 } else if (file.error) {
                     var error = $('<span class="text-danger"/>').text(file.error);
                     $(data.context.children()[index])
@@ -489,23 +400,13 @@
     });
 
     function operationsFormatter(value, row, index) {
-        /*****************
-         "<button type='button' class='btn btn-primary btn-lg' data-toggle='modal' data-target='#uploadModal'>上传</button>",
-         "<button type='button' class='btn btn-primary btn-lg' data-toggle='modal' data-target='#uploadModal'>编辑</button>",
-         *******************/
         var book_id = row['id'];
         return [
-            '<a class="upload-img" href="javascript:void(0)" title="上传图片">',
-            '<i class="glyphicon glyphicon-upload"></i>',
-            '</a>',
-            '<a class="delete-book" href="javascript:void(0)" title="删除图书">',
+            '<a class="delete-activity" href="javascript:void(0)" title="删除活动">',
             '<i class="glyphicon glyphicon-remove"></i>',
             '</a>',
-            '<a class="add-essence" href="javascript:void(0)" title="添加精品文章">',
+            '<a class="add-activity" href="javascript:void(0)" title="添加活动">',
             '<i class="glyphicon glyphicon-plus"></i>',
-            '</a>',
-            '<a class="edit-book" href="javascript:void(0)" title="编辑图书">',
-            '<i class="glyphicon glyphicon-pencil"></i>',
             '</a>'
         ].join('');
     }
@@ -513,24 +414,15 @@
 </script>
 
 <script>
-    var $table = $("#books-table");
+    var $table = $("#activity-table");
 
     window.operateEvents = {
-        'click .upload-img': function (e, value, row, index) {
-            cur_operate_book_id = row['id'];
-            $('#uploadModal').modal('toggle');
-        },
-        'click .edit-book': function (e, value, row, index) {
-            cur_operate_book_id = row['id'];
-            $('#bookEditModal').modal('toggle');
-        },
-        'click .delete-book': function (e, value, row, index) {
+        'click .delete-activity': function (e, value, row, index) {
             cur_operate_book_id = row['id'];
             $('#bookDeleteModal').modal('toggle');
         },
-        'click .add-essence': function(e, value, row, index) {
+        'click .add-activity': function(e, value, row, index) {
             cur_operate_book_id = row['id'];
-            $('#addBookReviewModal').modal('toggle');
         }
     };
 
@@ -566,6 +458,7 @@
     })
     */
 
+    /*
     $table.on('expand-row.bs.table', function (e, index, row, $detail) {
         $detail.html('loading data...');
 
@@ -573,6 +466,7 @@
             $detail.html(res);
         });
     });
+    */
 
     $('#deleteConfirm').on('click', function() {
         var post_data = "id=" + cur_operate_book_id;
@@ -654,7 +548,7 @@
         //window.prettyPrint && prettyPrint();
     });
 
-    function onReviewSubmit() {
+    function onActivitySubmit() {
         /*
          var str_data = $("#paper-form input").map(function() {
          return ($(this).attr("name")+'='+$(this).val());
@@ -667,31 +561,14 @@
         //alert(str_data);
 
         var editorContent = $('#second-editor').cleanHtml();
-        $('#bookReviewSubmit').val(editorContent);
-        $('#newBookId').val('' + cur_operate_book_id);
-        //$('#book-review-form').submit();
+        $('#activitySubmit').val(editorContent);
+        //$('#add-activity-form').submit();
 
-        /*
-        var previewAddFunc = function (title, content) {
-            var panelTemplate = '<div class="panel panel-default">'
-                    +       '<div class="panel-heading">'
-                    +           '<h3 class="panel-title">PanelTitle</h3>'
-                    +       '</div>'
-                    +       '<div class="panel-body">'
-                    +           'PanelContent'
-                    +       '</div>'
-                    +   '</div>';
-
-            var panelHtml = panelTemplate.replace("PanelTitle", title).replace("PanelContent", content);
-            $('#review-preview').append(panelHtml);
-        }
-        */
-
-        var formData = new FormData($('#book-review-form')[0]);
+        var formData = new FormData($('#add-activity-form')[0]);
 
         $.ajax({
             type: "POST",
-            url: "add_review",
+            url: "addActivity",
             data: formData,
             processData: false,
             contentType: false,
@@ -700,15 +577,19 @@
             }
         });
 
-        $('#book-review-form')[0].reset();
+        $('#add-activity-form')[0].reset();
         $('#second-editor').html("");
-        $('#addBookReviewModal').modal('hide');
-        //previewAddFunc($('#reviewTitle').val(), editorContent);
+
+        $('#add-activity-div').attr("style", "display:none;");
         return false;
     }
 
-    $('#add-review-submit').click(function () {
-        return onReviewSubmit();
+    $('#add-activity-submit').click(function () {
+        return onActivitySubmit();
+    });
+
+    $('#add-activity-btn').on('click', function() {
+        $('#add-activity-div').attr("style", "display:block; background: bisque;");
     });
 
 </script>

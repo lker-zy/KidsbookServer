@@ -27,10 +27,14 @@ public class ActivityServiceBean implements ActivityService {
         this.jdbcTemplate = new JdbcTemplate(dataSource);
     }
 
+    private Long lastInsertId() {
+        return jdbcTemplate.queryForLong("SELECT LAST_INSERT_ID()");
+    }
+
     @Override
     public List<Activity> list() {
         List<Map<String, Object>> activities = jdbcTemplate.queryForList(
-                "select id, name, content, address, content, start_time, image_url from " + TABLE + " where id > ?",
+                "select id, name, content, address, content, start_time, image_url, type from " + TABLE + " where id > ?",
                 new Object[] {0},
                 new int[] {Types.INTEGER});
 
@@ -45,12 +49,27 @@ public class ActivityServiceBean implements ActivityService {
             activity.setName((String) resultLine.get("name"));
             activity.setAddress((String) resultLine.get("address"));
             activity.setContent((String) resultLine.get("content"));
-            activity.setStartTime((Timestamp) resultLine.get("start_time"));
+            activity.setStartTime(((Timestamp) resultLine.get("start_time")).toString());
             activity.setImageUrl((String) resultLine.get("image_url"));
+            activity.setType((int) resultLine.get("type"));
 
             results.add(activity);
         }
 
         return results;
+    }
+
+    @Override
+    public void add(Activity activity) {
+
+        jdbcTemplate.update("insert into " + TABLE +
+                        "(name, address, start_time, content, image_url, type) " +
+                        "values(?, ?, ?, ?, ?, ?)",
+                new Object[] {activity.getName(), activity.getAddress(), activity.getStartTime(), activity.getContent(), activity.getImageUrl(), activity.getType()},
+                new int[] {Types.VARCHAR, Types.VARCHAR, Types.TIMESTAMP, Types.VARCHAR, Types.VARCHAR, Types.INTEGER}
+        );
+
+        Long id = lastInsertId();
+        activity.setId(id);
     }
 }
