@@ -10,6 +10,28 @@
 (function ($) {
 	'use strict';
 
+    var uploadFileToServer = function (id, action, callback) {
+        console.log("element id: ", id, "");
+        $.ajaxFileUpload({
+            url: action,
+            secureurl: false,
+            fileElementId: id,
+            dataType: "json",
+            success: function(obj, status) {
+                console.log("File upload success", obj, "");
+                if (obj.status == 0) {
+                    console.log("File upload success", obj.files[0].url, "");
+                    callback(obj.files[0].url);
+                } else {
+                    console.log("File upload error", "server-internal-exception", obj.message);
+                }
+            },
+            error: function () {
+                console.log("File upload error", "upload-failure", "");
+            }
+        })
+    };
+
 	var readFileIntoDataUrl = function (fileInfo) {
 		var loader = $.Deferred(),
 			fReader = new FileReader();
@@ -159,15 +181,27 @@
                 }
             },
 
-			insertFiles = function (files) {
+			insertFiles = function (files, id, action) {
 				editor.focus();
 				$.each(files, function (idx, fileInfo) {
 					if (/^image\//.test(fileInfo.type)) {
+						/*
 						$.when(readFileIntoDataUrl(fileInfo)).done(function (dataUrl) {
 							execCommand('insertimage', dataUrl);
 							editor.trigger('image-inserted');
 						}).fail(function (e) {
 							options.fileUploadError("file-reader", e);
+						});
+						*/
+
+						uploadFileToServer(id, action, function(src) {
+							execCommand('insertimage', src);
+                            var replaceHtml = '<div style="text-align:center; width: 100%;"><img src="'+ src +'" width="80%"></div>';
+                            var reg=new RegExp('<img src="'+ src +'">', 'ig');
+                            var newHtml = $(editor).html().replace(reg, replaceHtml);
+                            $(editor).html(newHtml);
+                            //document.body.innerHTML = document.body.innerHTML.replace(reg, replaceHtml);
+                            $(editor).focus();
 						});
 					} else {
 						options.fileUploadError("unsupported-file-type", fileInfo.type);
@@ -218,6 +252,7 @@
 						markSelection(input, false);
 					}
 				});
+				/*
 				toolbar.find('input[type=file][data-' + options.commandRole + ']').change(function () {
 					restoreSelection();
 					if (this.type === 'file' && this.files && this.files.length > 0) {
@@ -225,6 +260,15 @@
 					}
 					saveSelection();
 					this.value = '';
+				});
+				*/
+				toolbar.find('input[type=file][data-' + options.commandRole + ']').change(function() {
+                    restoreSelection();
+                    if (this.type === 'file' && this.files && this.files.length > 0) {
+                        insertFiles(this.files, $(this).attr('id'), $(this).attr('action'));
+                    }
+                    saveSelection();
+                    this.value = '';
 				});
 			},
 			initFileDrops = function () {

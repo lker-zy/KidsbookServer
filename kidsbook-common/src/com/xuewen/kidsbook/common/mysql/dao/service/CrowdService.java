@@ -10,8 +10,11 @@ import java.util.Map;
  * Created by root on 16-4-30.
  */
 public interface CrowdService {
+    List<CrowdReport> listReports();
     List<CrowdReport> listReports(Long apply_id);
     List<Map<String, Object>> reportOverview();
 
     List<CrowdApply> listApply();
+
+    void addReport(CrowdReport report);
 }

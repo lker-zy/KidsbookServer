@@ -51,5 +51,33 @@
                 <param name="root">retJsonMap</param>
             </result>
         </action>
+        <action name="addReport"
+                class="com.xuewen.kidsbook.mis.action.CrowdReportAdd" method="execute">
+            <result type="json">
+                <!-- 这里指定将被Struts2序列化的属性，该属性在action中必须有对应的getter方法 -->
+                <param name="root">retJsonMap</param>
+            </result>
+        </action>
+        <action name="listReports"
+                class="com.xuewen.kidsbook.mis.action.CrowdReports" method="execute">
+            <result type="json">
+                <!-- 这里指定将被Struts2序列化的属性，该属性在action中必须有对应的getter方法 -->
+                <param name="root">retJsonMap</param>
+            </result>
+        </action>
+        <action name="listApply"
+                class="com.xuewen.kidsbook.mis.action.CrowdApplyList" method="execute">
+            <result type="json">
+                <!-- 这里指定将被Struts2序列化的属性，该属性在action中必须有对应的getter方法 -->
+                <param name="root">retJsonMap</param>
+            </result>
+        </action>
+        <action name="listActivity"
+                class="com.xuewen.kidsbook.mis.action.ListActivity" method="execute">
+            <result type="json">
+                <!-- 这里指定将被Struts2序列化的属性，该属性在action中必须有对应的getter方法 -->
+                <param name="root">retJsonMap</param>
+            </result>
+        </action>
     </package>
 </struts>

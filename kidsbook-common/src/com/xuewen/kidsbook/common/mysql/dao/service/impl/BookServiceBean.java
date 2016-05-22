@@ -29,10 +29,10 @@ public class BookServiceBean implements BookService {
     @Override
     public Long save(Book book) {
         jdbcTemplate.update("insert into " + TABLE +
-                            "(name, ddid, isbn, author, descript, price, pub_org, img_url) " + "" +
-                            "values(?, ?, ?, ?, ?, ?, ?, ?)",
-                            new Object[] {book.getName(), book.getDDId(), book.getIsbn(), book.getAuthor(), book.getDesc(), book.getPrice(), book.getPublishOrg(), book.getImgUrl()},
-                            new int[] {Types.VARCHAR, Types.CHAR, Types.CHAR, Types.VARCHAR, Types.VARCHAR, Types.CHAR, Types.CHAR, Types.VARCHAR}
+                            "(name, ddid, isbn, author, descript, price, pub_org, img_url, words_num, pages_num) " + "" +
+                            "values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+                            new Object[] {book.getName(), book.getDDId(), book.getIsbn(), book.getAuthor(), book.getDesc(), book.getPrice(), book.getPublishOrg(), book.getImgUrl(), book.getWordsNum(), book.getPages()},
+                            new int[] {Types.VARCHAR, Types.CHAR, Types.CHAR, Types.VARCHAR, Types.VARCHAR, Types.CHAR, Types.CHAR, Types.VARCHAR, Types.BIGINT, Types.INTEGER}
                 );
 
         Long id = lastInsertId();
@@ -47,7 +47,7 @@ public class BookServiceBean implements BookService {
 
     @Override
     public void update(Book book) {
-        jdbcTemplate.update("update " + TABLE + " set category=?, search_tag=? where id=?",
+        jdbcTemplate.update("update " + TABLE + " set category=?, search_tag=? where id = ?",
                 new Object[] {book.getAuthor(), book.getIsbn(), book.getId()},
                 new int[] {Types.ARRAY, Types.ARRAY, Types.BIGINT});
     }

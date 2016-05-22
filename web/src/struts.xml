@@ -69,5 +69,9 @@
                 <param name="root">retJsonMap</param>
             </result>
         </action>
+        <action name="detailEssenceWeb"
+                class="com.xuewen.kidsbook.web.action.WebEssenceDetail" method="execute">
+            <result name="success">/WEB-INF/content/essence/detail.jsp</result>
+        </action>
     </package>
 </struts>

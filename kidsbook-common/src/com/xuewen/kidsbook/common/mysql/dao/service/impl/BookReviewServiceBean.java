@@ -57,7 +57,7 @@ public class BookReviewServiceBean implements ReviewService {
     @Override
     public List<BookReview> list() {
         List<Map<String, Object>> reviews = jdbcTemplate.queryForList(
-                "select id, author, book_id, title from " + TABLE + " where id > ?",
+                "select id, author, book_id, title, content from " + TABLE + " where id > ?",
                 new Object[] {0},
                 new int[] {Types.INTEGER});
 
@@ -72,6 +72,9 @@ public class BookReviewServiceBean implements ReviewService {
             bookReview.setAuthor((String) resultLine.get("author"));
             bookReview.setBookId((Long) resultLine.get("book_id"));
             bookReview.setTitle((String) resultLine.get("title"));
+            String content = (String) resultLine.get("content");
+            int length = content.length() > 200 ? 200 : content.length();
+            bookReview.setContent(content.substring(0, length));
 
             results.add(bookReview);
         }

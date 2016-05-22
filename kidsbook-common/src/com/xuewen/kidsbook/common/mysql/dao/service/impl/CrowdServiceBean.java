@@ -20,6 +20,9 @@ public class CrowdServiceBean implements CrowdService {
     private static String REPORT_TABLE = "crowd_report";
     private static String APPLY_TABLE = "crowd_apply";
 
+    private static String[] REPORT_TABLE_COLUMN_LIST = {"id", "apply_id", "status", "create_time", "author", "content", "title", "zan_num"};
+    private static String[] APPLY_TABLE_COLUMN_LIST = {"id", "book_id", "status", "start_time", "end_time", "book_name", "publisher", "image_url", "apply_num"};
+
     private Logger logger = Logger.getLogger(this.getClass().getName());
     private DataSource dataSource;
     private JdbcTemplate jdbcTemplate;
@@ -30,11 +33,22 @@ public class CrowdServiceBean implements CrowdService {
     }
 
     @Override
+    public List<CrowdReport> listReports() {
+        return listReports((long) 0);
+    }
+
+    @Override
     public List<CrowdReport> listReports(Long apply_id) {
-        List<Map<String, Object>> reports = jdbcTemplate.queryForList(
-                "select id, title, content, author, zan_num from " + REPORT_TABLE + " where apply_id = ?",
-                new Object[] {apply_id},
-                new int[] {Types.BIGINT});
+        List<Map<String, Object>> reports;
+        if (apply_id != 0) {
+            reports = jdbcTemplate.queryForList(
+                    "select id, title, content, author, zan_num from " + REPORT_TABLE + " where apply_id = ?",
+                    new Object[]{apply_id},
+                    new int[]{Types.BIGINT});
+        } else {
+            reports = jdbcTemplate.queryForList(
+                    "select id, title, content, author, zan_num from " + REPORT_TABLE);
+        }
 
         List<CrowdReport> results = new ArrayList<>();
 
@@ -88,5 +102,16 @@ public class CrowdServiceBean implements CrowdService {
         }
 
         return results;
+    }
+
+    @Override
+    public void addReport(CrowdReport report) {
+        jdbcTemplate.update("insert into " + REPORT_TABLE +
+                        "(apply_id, status, author, content, title, image_url, zan_num) " + "" +
+                        "values(?, ?, ?, ?, ?, ?, ?)",
+                new Object[] {report.getApplyId(), 0, report.getAuthor(), report.getContent(), report.getTitle(), report.getImageUrl(), report.getZanNum()},
+                new int[] {Types.BIGINT, Types.INTEGER, Types.VARCHAR, Types.LONGVARCHAR, Types.VARCHAR, Types.VARCHAR, Types.INTEGER}
+        );
+
     }
 }

@@ -11,10 +11,7 @@ import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.security.MessageDigest;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import org.apache.struts2.ServletActionContext;
 /*
@@ -35,6 +32,8 @@ public class ImageUploadAction extends CommonJsonAction {
 
     private static final long serialVersionUID = 1L;
     private static final int BUFFER_SIZE = 16 * 1024;
+
+    private String type;
 
     /**
      * 需要上传的文件
@@ -90,6 +89,16 @@ public class ImageUploadAction extends CommonJsonAction {
         return hexValue.toString();
     }
 
+    public static String getRandomString(int length) { //length表示生成字符串的长度
+        String base = "abcdefghijklmnopqrstuvwxyz0123456789";
+        Random random = new Random();
+        StringBuffer sb = new StringBuffer();
+        for (int i = 0; i < length; i++) {
+            int number = random.nextInt(base.length());
+            sb.append(base.charAt(number));
+        }
+        return sb.toString();
+    }
     /**
      * 新文件上传
      *
@@ -99,20 +108,27 @@ public class ImageUploadAction extends CommonJsonAction {
         List<Map<String, Object>> files = new ArrayList<>();
         Map<String, Object> fileJsonMap = new HashMap<>();
 
-        String imageId = string2MD5(uploadFileName);
+        String imageId = "";
+        if ("essenceImg".equals(getType())) {
+            imageId = getRandomString(32);
+            path = ServletActionContext.getServletContext().getRealPath(File.separator + "images");
+        } else {
+            imageId = string2MD5(getUploadFileName());
+        }
 
-        fileJsonMap.put("url", "http://www.baidu.com");
+        fileJsonMap.put("url", "http://180.76.176.227/mis/images/" + imageId + ".png");
         fileJsonMap.put("size", 1000);
         fileJsonMap.put("name", "test upload file");
         fileJsonMap.put("imageId", imageId);
 
         files.add(fileJsonMap);
         retJsonMap.put("files", files);
+        retJsonMap.put("status", 0);
 
         try {
             // 将Struts2自动封装的文件名赋给要写入的文件
             //storageFileName = uploadFileName;
-            storageFileName = imageId;
+            storageFileName = imageId + ".png";
             // 创建要写入的文件
             File storageFile = new File(path + File.separator + storageFileName);
             copy(upload, storageFile);
@@ -196,5 +212,13 @@ public class ImageUploadAction extends CommonJsonAction {
 
     public void setPath(String path) {
         this.path = path;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 }

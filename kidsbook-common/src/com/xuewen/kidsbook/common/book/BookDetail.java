@@ -5,6 +5,7 @@ package com.xuewen.kidsbook.common.book;
  */
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.TypeReference;
 import com.xuewen.kidsbook.common.mysql.dao.service.BookService;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -16,6 +17,27 @@ import java.util.logging.Logger;
 /**
  * Created by root on 16-2-16.
  */
+
+class PublishInfoItemContent {
+    private String name;
+    private String content;
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
+}
 
 class BookDetailInfo {
     private Logger logger = Logger.getLogger(this.getClass().getName());
@@ -229,6 +251,10 @@ public class BookDetail {
         book.setAuthor(pubinfo.getAuthor_name());
         book.setPublishOrg(pubinfo.getPublisher());
         book.setIsbn(pubinfo.getStandard_id());
+        /*
+        book.setPages(Integer.parseInt(pubinfo.getNumber_of_pages()));
+        book.setWordsNum(Long.parseLong(pubinfo.getNumber_of_words()));
+        */
 
         String pub_name = "出版信息";
         String brief_name = "简介";
@@ -242,6 +268,18 @@ public class BookDetail {
             logger.info("desc name: " + desc.getName());
 
             if (desc.getName().equals(pub_name)) {
+                List<PublishInfoItemContent> items = JSON.parseObject(desc.getContent(),
+                        new TypeReference<List<PublishInfoItemContent>>(){});
+                for (int i = 0; i < items.size(); ++i) {
+                    PublishInfoItemContent item = items.get(i);
+
+                    if (item.getName().equals("字数")) {
+                        book.setWordsNum(Long.parseLong(item.getContent()));
+                    }
+                    if (item.getName().equals("出版时间")) {
+                        book.setPublishTime(item.getContent());
+                    }
+                }
             } else if (desc.getName().equals(brief_name) == true) {
                 bookdesc = desc.getContent();
             } else if (desc.getName().equals(recommend_name) == true) {

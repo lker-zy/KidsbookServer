@@ -69,7 +69,8 @@
                 <li><a href="">用户管理</a></li>
             </ul>
             <ul class="nav nav-sidebar">
-                <li><a href="">活动配置</a></li>
+                <li><a href="activity.html">活动配置</a></li>
+                <li><a href="crowd.html">新书试读</a></li>
                 <li><a href="">合作方管理</a></li>
             </ul>
         </div>
@@ -321,15 +322,13 @@
                                 <input placeholder="URL" type="text" data-edit="createLink" />
                                 <button class="btn" type="button">Add</button>
                             </div>
-                        </div>
-                        <!--
-                        <div class="btn-group">
                             <a class="btn btn-default" data-edit="unlink" title="Remove Hyperlink"><i class="fa fa-unlink"></i></a>
+                        </div>
+                        <div class="btn-group">
                             <span class="btn btn-default" title="Insert picture (or just drag & drop)" id="pictureBtn"> <i class="fa fa-picture-o"></i>
-                                <input class="imgUpload" type="file" data-role="magic-overlay" data-target="#pictureBtn" data-edit="insertImage" />
+                                <input class="imgUpload" type="file" id="essenceImageUpload" name="upload" data-role="magic-overlay" data-target="#pictureBtn" data-edit="insertImage" action="http://180.76.176.227/mis/imageupload?type=essenceImg" />
                             </span>
                         </div>
-                        -->
                         <div class="btn-group">
                             <a class="btn btn-default" data-edit="undo" title="Undo (Ctrl/Cmd+Z)"><i class="fa fa-undo"></i></a>
                             <a class="btn btn-default" data-edit="redo" title="Redo (Ctrl/Cmd+Y)"><i class="fa fa-repeat"></i></a>
@@ -352,6 +351,7 @@
 
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 <script src="http://cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
+<script src="webres/js/ajaxfileupload.js"></script>
 
 <script src="http://cdn.bootcss.com/blueimp-file-upload/9.10.4/vendor/jquery.ui.widget.js"></script>
 <script src="http://cdn.bootcss.com/blueimp-file-upload/9.10.4/jquery.fileupload.js"></script>
@@ -392,7 +392,7 @@
     /*global window, $ */
     $(function () {
         'use strict';
-        var url = "http://localhost:8080/imageupload";
+        var url = "http://180.76.176.227/mis/imageupload";
         var uploadButton = $('<button/>')
             .addClass('btn btn-primary')
             .prop('disabled', true)

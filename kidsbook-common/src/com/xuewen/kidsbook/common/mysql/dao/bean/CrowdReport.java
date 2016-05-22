@@ -9,13 +9,22 @@ public class CrowdReport {
     private String title;
     private String author;
     private String content;
+    private String imageUrl;
     private Long zanNum;
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
 
     public Long getApplyId() {
         return applyId;
     }
 
-    public void setApplyIdId(Long applyId) {
+    public void setApplyId(Long applyId) {
         this.applyId = applyId;
     }
 

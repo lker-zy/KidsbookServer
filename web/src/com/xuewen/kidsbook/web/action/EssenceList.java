@@ -44,6 +44,7 @@ public class EssenceList extends ActionSupport {
             reviewMap.put("author", review.getAuthor());
             reviewMap.put("title", review.getTitle());
             reviewMap.put("img", imgPrefix + review.getId() + ".png");
+            reviewMap.put("desc", review.getContent());
 
             listJson.add(reviewMap);
         }

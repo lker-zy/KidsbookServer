@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
-    <title>列表页 - 最美童书 - 后台管理</title>
+    <title>活动管理 - 最美童书 - 后台管理</title>
 
     <!-- Bootstrap -->
     <link href="http://cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">
@@ -70,6 +70,7 @@
             </ul>
             <ul class="nav nav-sidebar">
                 <li class="active"><a href="#">活动配置 <span class="sr-only">(current)</span></a></li>
+                <li><a href="crowd.html">新书试读</a></li>
                 <li><a href="">合作方管理</a></li>
             </ul>
         </div>
@@ -99,7 +100,7 @@
                        data-pagination="true"
                        data-side-pagination="server"
                        data-page-list="[5,10]"
-                       data-url="test.json"
+                       data-url="http://180.76.176.227/mis/listActivity"
                        data-search="true">
                     <thead>
                         <tr>
@@ -108,9 +109,10 @@
                             <th data-field="name"
                                 data-width="200px">活动名称</th>
                             <th data-field="datetime">活动时间</th>
-                            <th data-field="desc">简介</th>
-                            <th data-field="address">地址</th>
-                            <th data-field="contact">联系电话</th>
+                            <th data-field="contact">联系方式</th>
+                            <th data-field="address">活动地址</th>
+                            <th data-field="type">活动类型</th>
+                            <th data-field="content">活动内容</th>
                             <th data-field="operations"
                                 data-align="center"
                                 data-events="operateEvents"
